@@ -1,0 +1,110 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: doorman
+
+provider:
+  name: aws
+  runtime: python3.6
+
+# you can overwrite defaults here
+  stage: dev
+#  region: us-east-1
+
+# you can add statements to the Lambda function's IAM Role here
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "rekognition:DetectFaces"
+        - "rekognition:SearchFacesByImage"
+        - "rekognition:IndexFaces"
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+       - "s3:PutObject"
+       - "s3:PutObjectAcl"
+       - "s3:GetObject"
+       - "s3:DeleteObject"
+      Resource:
+        - "arn:aws:s3:::${env:BUCKET_NAME}/*"
+
+ #   - Effect: "Allow"
+ #     Action:
+ #       - "s3:ListBucket"
+ #     Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+ #   - Effect: "Allow"
+ #     Action:
+ #       - "s3:PutObject"
+ #     Resource:
+ #       Fn::Join:
+ #         - ""
+ #         - - "arn:aws:s3:::"
+ #           - "Ref" : "ServerlessDeploymentBucket"
+ #           - "/*"
+
+# you can define service wide environment variables here
+  environment:
+    BUCKET_NAME: ${env:BUCKET_NAME}
+    SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
+    SLACK_CHANNEL_ID: ${env:SLACK_CHANNEL_ID}
+    REKOGNITION_COLLECTION_ID: ${env:REKOGNITION_COLLECTION_ID}
+# you can add packaging information here
+#package:
+#  include:
+#    - include-me.py
+#    - include-me-dir/**
+#  exclude:
+#    - exclude-me.py
+#    - exclude-me-dir/**
+
+
+functions:
+  guess:
+    handler: handler.guess
+    events:
+      - s3:
+          bucket: ${env:BUCKET_NAME}
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: incoming/
+  unknown:
+    handler: handler.unknown
+    events:
+      - s3:
+          bucket: ${env:BUCKET_NAME}
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: unknown/
+  train:
+    handler: handler.train
+    events:
+      - http:
+          path: faces/train
+          method: post
+    environment:
+      DELETE_FUNCTION_ARN:
+        Ref: DeleteLambdaFunction
+
+  delete:
+    handler: handler.delete
+
+# resources:
+#   Resources:
+#     S3BucketDoormanfaces:
+#       Type: AWS::S3::Bucket
+#       Properties:
+#         BucketName: ${env:BUCKET_NAME}
+#         # add additional custom bucket configuration here
+#
+plugins:
+  - serverless-python-requirements
