@@ -91,12 +91,6 @@ functions:
       - http:
           path: faces/train
           method: post
-    environment:
-      DELETE_FUNCTION_ARN:
-        Ref: DeleteLambdaFunction
-
-  delete:
-    handler: handler.delete
 
 # resources:
 #   Resources:
