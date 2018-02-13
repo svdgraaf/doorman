@@ -7,6 +7,7 @@ This was send in as part of the [AWS Deeplens Hackaton](https://devpost.com/soft
 
 Setup
 -----
+Quite a few steps, needs cleanup, most of it can be automated.
 
 - Create a bucket, remember the name, make sure that your deeplens user can write to this bucket.
 - Create a Rekognition collection (and note the collecition id)
@@ -35,3 +36,7 @@ That should be it. Whenever the Deeplens rekognizes someone, it will upload into
 Architecture
 ------------
 ![Architecture](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/602/534/datas/gallery.jpg)
+
+Video
+-----
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/UXVD22jDbu8/0.jpg)](https://www.youtube.com/watch?v=UXVD22jDbu8)
