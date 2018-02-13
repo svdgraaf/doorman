@@ -31,3 +31,7 @@ Setup
 - Deploy the app again with the new environment variables
 
 That should be it. Whenever the Deeplens rekognizes someone, it will upload into the S3 bucket. Which will trigger the other lambda functions.
+
+Architecture
+------------
+![Architecture](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/602/534/datas/gallery.jpg)
