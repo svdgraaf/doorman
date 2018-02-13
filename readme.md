@@ -39,4 +39,4 @@ Architecture
 
 Video
 -----
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/UXVD22jDbu8/0.jpg)](https://www.youtube.com/watch?v=UXVD22jDbu8)
+[![Video](https://img.youtube.com/vi/UXVD22jDbu8/0.jpg)](https://www.youtube.com/watch?v=UXVD22jDbu8)
