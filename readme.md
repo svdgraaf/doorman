@@ -11,10 +11,10 @@ Setup
 - Create a bucket, remember the name, make sure that your deeplens user can write to this bucket.
 - Create a Rekognition collection (and note the collecition id)
 - Be sure to have the following env vars in your environment:
- o BUCKET_NAME=your-bucket-name
- o SLACK_API_TOKEN=your-slack-token
- o SLACK_CHANNEL_ID="slack-channel-id"
- o REKOGNITION_COLLECTION_ID="your-collection-id"
+  - BUCKET_NAME=your-bucket-name
+  - SLACK_API_TOKEN=your-slack-token
+  - SLACK_CHANNEL_ID="slack-channel-id"
+  - REKOGNITION_COLLECTION_ID="your-collection-id"
 
 - Deploy the lambda functions with Serverles (eg: `sls deploy`), this will create a CF stack with your functions. Note the api gateway endpoint, you'll need it later
 
@@ -25,9 +25,9 @@ Setup
 - Go to the [slack api](https://api.slack.com/apps), and click "create a new app".
 - Give a name, and select your workspace
 - Activate:
- o Incoming webhooks
- o Interactive components (use the api gateway endpoint that you noted before, ignore `Load URL`)
- o Permissions: Install the app in your workspace, and note the token. You'll need `chat:write:bot`, `channels:read` and `incoming-webhook`.
+  - Incoming webhooks
+  - Interactive components (use the api gateway endpoint that you noted before, ignore `Load URL`)
+  - Permissions: Install the app in your workspace, and note the token. You'll need `chat:write:bot`, `channels:read` and `incoming-webhook`.
 - Deploy the app again with the new environment variables
 
 That should be it. Whenever the Deeplens rekognizes someone, it will upload into the S3 bucket. Which will trigger the other lambda functions.
