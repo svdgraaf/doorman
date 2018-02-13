@@ -92,6 +92,10 @@ functions:
           path: faces/train
           method: post
 
+  # find person, function for greengrass device
+  find-person:
+    handler: find_person.function_handler
+
 # resources:
 #   Resources:
 #     S3BucketDoormanfaces:
